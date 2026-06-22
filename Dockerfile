@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # تثبيت متصفح Chromium الخاص بـ Playwright
 RUN playwright install chromium
 
-# نسخ ملفات البوت (بدون .env)
+# نسخ ملفات البوت
 COPY bot.py .
 COPY scraper.py .
 
