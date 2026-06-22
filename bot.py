@@ -10,7 +10,7 @@ from scraper import fetch_all_platforms, analyze_with_gemini
 
 # ======================= إعداد المتغيرات =======================
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
 ADMIN_ID = int(os.getenv("ADMIN_ID", 0))
 
 if not TELEGRAM_TOKEN or not GEMINI_API_KEY:
