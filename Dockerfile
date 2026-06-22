@@ -24,6 +24,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# ✅ تثبيت أحدث إصدار من google-generativeai بشكل منفصل (للتأكيد)
+RUN pip install --upgrade google-generativeai
+
 # تثبيت متصفح Chromium الخاص بـ Playwright
 RUN playwright install chromium
 
