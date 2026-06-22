@@ -59,8 +59,10 @@ def analyze_with_gemini(raw_data, user_request):
     """
     تحليل البيانات المجمعة وتصفيتها حسب طلب المستخدم عبر Gemini API
     """
-    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # ✅ تم تغيير اسم المتغير البيئي من GEMINI_API_KEY إلى GOOGLE_API_KEY
+    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+    # ✅ تم تغيير النموذج إلى إصدار مدعوم (gemini-2.0-flash-exp)
+    model = genai.GenerativeModel('gemini-2.0-flash-exp')
     
     # بناء النص المرسل إلى Gemini
     combined_text = ""
