@@ -60,7 +60,7 @@ def analyze_with_gemini(raw_data, user_request):
     تحليل البيانات المجمعة وتصفيتها حسب طلب المستخدم عبر Gemini API
     """
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-    # ✅ استخدام النموذج المستقر والمتوفر (gemini-1.5-pro)
+    # ✅ النموذج الصحيح والمتوفر
     model = genai.GenerativeModel('gemini-1.5-pro')
     
     # بناء النص المرسل إلى Gemini
