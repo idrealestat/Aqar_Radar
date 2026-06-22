@@ -13,7 +13,6 @@ PLATFORMS = [
     {"name": "حراج", "url": "https://haraj.com.sa/tags/شقق-للبيع-الخبر"},
     {"name": "بيوت", "url": "https://www.bayut.sa/للبيع/شقق/الخبر"},
     {"name": "زاهب", "url": "https://zaheb.com/شقق-للبيع/الخبر"},
-    # يمكنك إضافة المزيد من المنصات هنا
 ]
 
 async def fetch_platform_data(platform):
@@ -43,7 +42,7 @@ async def fetch_platform_data(platform):
             return {
                 "source": platform["name"],
                 "url": platform["url"],
-                "content": content[:8000],  # تقطيع لتجنب تجاوز حد API
+                "content": content[:8000],
                 "links": links[:50]
             }
     except Exception as e:
@@ -67,7 +66,7 @@ def analyze_with_gemini(raw_data, user_request):
     combined_text = ""
     for item in raw_data:
         combined_text += f"\n\n--- المصدر: {item['source']} ---\n"
-        combined_text += item['content'][:3000]  # أخذ جزء من النص
+        combined_text += item['content'][:3000]
     
     prompt = f"""
     أنت محلل بيانات عقاري دقيق. قم بتحليل البيانات التالية واستخراج العروض التي تطابق طلب المستخدم.
