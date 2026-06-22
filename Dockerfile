@@ -27,10 +27,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # تثبيت متصفح Chromium الخاص بـ Playwright
 RUN playwright install chromium
 
-# نسخ ملفات البوت
+# نسخ ملفات البوت (بدون .env)
 COPY bot.py .
 COPY scraper.py .
-COPY .env .
 
 # متغير البيئة لتحديد مسار متصفح Playwright
 ENV PLAYWRIGHT_BROWSERS_PATH=/app/.cache/playwright
