@@ -10,14 +10,14 @@ from scraper import fetch_all_platforms, analyze_with_gemini
 
 # ======================= إعداد المتغيرات =======================
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")  # ✅ نفس الاسم المستخدم في Render
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")  # ✅ نفس الاسم في Render
 ADMIN_ID = int(os.getenv("ADMIN_ID", 0))
 
-if not TELEGRAM_TOKEN or not GOOGLE_API_KEY:  # ✅ تم التصحيح
+if not TELEGRAM_TOKEN or not GOOGLE_API_KEY:
     raise ValueError("❌ تأكد من وجود TELEGRAM_BOT_TOKEN و GOOGLE_API_KEY في متغيرات البيئة")
 
 # إعداد Gemini
-genai.configure(api_key=GOOGLE_API_KEY)  # ✅ تم التصحيح
+genai.configure(api_key=GOOGLE_API_KEY)
 
 # إعداد التسجيل
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
