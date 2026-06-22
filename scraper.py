@@ -60,8 +60,37 @@ def analyze_with_gemini(raw_data, user_request):
     تحليل البيانات المجمعة وتصفيتها حسب طلب المستخدم عبر Gemini API
     """
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-    # ✅ النموذج الصحيح والمتوفر
-    model = genai.GenerativeModel('gemini-1.5-pro')
+    
+    # ✅ جلب قائمة النماذج المتاحة واختيار الأنسب
+    try:
+        available_models = genai.list_models()
+        target_models = ['models/gemini-1.5-pro', 'models/gemini-1.5-flash', 'models/gemini-pro']
+        selected_model = None
+        
+        for model in available_models:
+            model_name = model.name
+            if any(target in model_name for target in target_models):
+                # التأكد من أن النموذج يدعم generateContent
+                if 'generateContent' in model.supported_generation_methods:
+                    selected_model = model_name
+                    break
+        
+        if not selected_model:
+            # إذا لم يتم العثور على نموذج مناسب، استخدم أول نموذج يدعم generateContent
+            for model in available_models:
+                if 'generateContent' in model.supported_generation_methods:
+                    selected_model = model.name
+                    break
+        
+        if not selected_model:
+            raise ValueError("❌ لم يتم العثور على أي نموذج يدعم generateContent في حسابك.")
+        
+        logger.info(f"✅ تم اختيار النموذج: {selected_model}")
+        model = genai.GenerativeModel(selected_model)
+        
+    except Exception as e:
+        logger.error(f"❌ فشل في تهيئة النموذج: {e}")
+        return f"❌ حدث خطأ أثناء تهيئة النموذج: {e}"
     
     # بناء النص المرسل إلى Gemini
     combined_text = ""
@@ -96,5 +125,9 @@ def analyze_with_gemini(raw_data, user_request):
     قم بعرض النتائج على شكل قائمة مرقمة مع تفاصيل كل عرض.
     """
     
-    response = model.generate_content(prompt)
-    return response.text
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        logger.error(f"❌ فشل في تحليل البيانات: {e}")
+        return f"❌ حدث خطأ أثناء التحليل: {e}"
